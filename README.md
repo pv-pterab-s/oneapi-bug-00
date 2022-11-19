@@ -27,7 +27,8 @@ port to OneAPI.
 
 # Environment
 
-  - Ubuntu 22.04. Ryzen AMD Ryzen 9 3900X 12-Core Processor
+  - Ubuntu 22.04
+  - AMD Ryzen 9 3900X 12-Core Processor
   - Backend is:
 
          SYCL host platform: SYCL host device, 32029 MB -- 1.2 -- Device driver 1.2 --
