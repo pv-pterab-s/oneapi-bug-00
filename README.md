@@ -22,22 +22,29 @@ to the function of the kernel.
 
 See the end of `main()` to understand the expected results.
 
-The problem seems to be inherent to many ArrayFire kernels and obstructs our
-port to OneAPI.
+# OneAPI Devices
+
+The bug occurs on certain devices:
+
+    FAIL [opencl:acc:0] Intel(R) FPGA Emulation Platform for OpenCL(TM), Intel(R) FPGA Emulation Device 1.2 [2022.14.10.0.20_160000.xmain-hotfix]
+    FAIL [opencl:cpu:1] Intel(R) OpenCL, AMD Ryzen 9 3900X 12-Core Processor 3.0 [2022.14.10.0.20_160000.xmain-hotfix]
+    GOOD [opencl:gpu:2] Intel(R) OpenCL HD Graphics, Intel(R) Graphics [0x56a0] 3.0 [22.32.23937]
+    GOOD [ext_oneapi_level_zero:gpu:0] Intel(R) Level-Zero, Intel(R) Graphics [0x56a0] 1.3 [1.3.23937]
+    FAIL [host:host:0] SYCL host platform, SYCL host device 1.2 [1.2]
+
+Set `DEVICE_NO` at the top of `build.sh` or as the first argument to
+`./out/main`.
+
 
 # Environment
 
   - Ubuntu 22.04
   - AMD Ryzen 9 3900X 12-Core Processor
-  - Backend is:
+  - Intel A770
+  - OneAPI version:
 
-         SYCL host platform: SYCL host device, 32029 MB -- 1.2 -- Device driver 1.2 --
-           FP64 Support: True -- Unified Memory (True)`.
-
-  - OneAPI says its version is:
-
-        Intel(R) oneAPI DPC++/C++ Compiler 2022.2.0 (2022.2.0.20220730)
+        Intel(R) oneAPI DPC++/C++ Compiler 2022.2.1 (2022.2.1.20221020)
         Target: x86_64-unknown-linux-gnu
         Thread model: posix
-        InstalledDir: /opt/intel/oneapi/compiler/2022.2.0/linux/bin-llvm
-        Configuration file: /opt/intel/oneapi/compiler/2022.2.0/linux/bin/icpx.cfg
+        InstalledDir: /opt/intel/oneapi/compiler/2022.2.1/linux/bin-llvm
+        Configuration file: /opt/intel/oneapi/compiler/2022.2.1/linux/bin/icx.cfg

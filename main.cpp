@@ -65,6 +65,16 @@ private:
 };
 
 int main(int argc, char **argv) {
+    auto platformNo = atoi(argv[1]);
+    auto platforms = sycl::platform::get_platforms();
+    assert(platforms.size() == 5);
+    auto platform = platforms[platformNo];
+
+    auto devices = platform.get_devices();
+    assert(devices.size() == 1);
+    auto deviceToRunOn = devices[0];
+
+    std::cout << "running on: " << deviceToRunOn.get_info<sycl::info::device::name>() << " -- " << platform.get_info<sycl::info::platform::name>() << std::endl;
 
     // in and out data
     float inHost[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
@@ -78,7 +88,7 @@ int main(int argc, char **argv) {
     // run the bad kernel
     auto _5x5 = sycl::range{5, 5};
     sycl::buffer<float, 2> debugBuffer(_5x5);
-    sycl::queue Q;
+    sycl::queue Q(deviceToRunOn);
     Q.submit([&](sycl::handler &h) {
         sycl::accessor outAcc{*out.data, h}, inAcc{*in.data, h};
         sycl::accessor debugAcc{debugBuffer, h};
