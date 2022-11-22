@@ -6,6 +6,7 @@ are made to the kernel functor.
 Reproduce the failure followed by a potential `FIX1` and another potential
 `FIX2` by running `./build.sh`
 
+    $ source /opt/intel/oneapi/setvars.sh intel64
     $ ./build.sh
 
     + icpx -g -fsycl main.cpp -o out/main
